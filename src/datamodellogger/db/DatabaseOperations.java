@@ -540,7 +540,6 @@ public class DatabaseOperations {
             }
 
         }
-
     }
 
     public void deployTriggersMSSQL() {

@@ -101,7 +101,7 @@ public class CustomGUI {
         public void handle(ActionEvent ae) {
             DatabaseOperations dbops = new DatabaseOperations();
             String Local_ISname = ISname.getText();
-            String Local_DBvendor =DBvendor.getValue().toString();
+            String Local_DBvendor = DBvendor.getValue().toString();
             String Local_DBurl = DBurl.getText();
             String Local_DBname = DBname.getText();
             String Local_DBuser = DBuser.getText();
@@ -115,12 +115,12 @@ public class CustomGUI {
                 }
                 //connectToMSServer(String DB_URL,String DB_NAME ,String USER, String PASS, String PORT, String SID)
             } else if (Local_DBvendor.equalsIgnoreCase("MS SQL")) {
-                Local_Port="1433";
-                if (dbops.connectToMSServer(Local_DBurl,Local_DBname,Local_DBuser, Local_DBpassword, Local_Port, Local_Sid)) {
+                Local_Port = "1433";
+                if (dbops.connectToMSServer(Local_DBurl, Local_DBname, Local_DBuser, Local_DBpassword, Local_Port, Local_Sid)) {
                     String Entry = Local_ISname + ',' + Local_DBvendor + ',' + Local_DBurl + ',' + Local_DBname + ',' + Local_DBuser + ',' + Local_DBpassword + ',' + Local_Port + ',' + Local_Sid;
                     writeToFile(Entry);
                 }
-            }else {
+            } else {
                 System.out.println("We currently support MS SQL and Oracle");
             }
 
