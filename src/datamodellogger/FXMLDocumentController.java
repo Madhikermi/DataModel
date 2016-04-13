@@ -29,7 +29,6 @@ import javafx.stage.Stage;
 import org.controlsfx.dialog.Dialogs;
 
 /**
- * z
  *
  * @author abuda
  */
