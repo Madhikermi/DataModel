@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="377.0" maxWidth="404.0" minHeight="347.0" minWidth="404.0" prefHeight="347.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="datamodellogger.FXMLDocumentController">
+    <children>
+      <TabPane fx:id="maintab" minHeight="-Infinity" minWidth="-Infinity" prefHeight="347.0" prefWidth="404.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Task Logging">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="309.0" prefWidth="404.0">
+                     <children>
+                        <Button fx:id="startButton" layoutX="22.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="77.0" prefWidth="154.0" style="-fx-background-color: green;" text="START" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Group>
+                           <children>
+                              <Label layoutX="22.0" layoutY="73.0" text="Insert Task Name" />
+                              <TextField fx:id="taskname" layoutX="135.0" layoutY="69.0" prefHeight="25.0" prefWidth="239.0" />
+                           </children>
+                        </Group>
+                        <Button fx:id="stop" layoutX="219.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleStopButton" prefHeight="76.0" prefWidth="150.0" style="-fx-background-color: red;" text="STOP" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="statusbar" layoutX="21.0" layoutY="273.0" prefHeight="25.0" prefWidth="365.0" />
+                        <Label layoutX="21.0" layoutY="255.0" text="Status Bar" />
+                        <Group layoutX="-307.0" layoutY="-4.0">
+                           <children>
+                              <Label layoutX="327.0" layoutY="34.0" text="Select Data Sources" />
+                           </children>
+                        </Group>
+                        <ChoiceBox fx:id="selectDataSource" layoutX="135.0" layoutY="26.0" prefWidth="150.0" />
+                        <Button fx:id="addNew" layoutX="301.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleAddNew" prefHeight="25.0" prefWidth="72.0" text="Add New" />
+                        <Separator layoutX="-4.0" layoutY="117.0" prefHeight="10.0" prefWidth="415.0" />
+                      <!--  <Button fx:id="addtest" layoutX="178.0" layoutY="122.0" onAction="#handleaddtest" mnemonicParsing="false" text="Test Button" /> -->
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Results">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="323.0" prefWidth="355.0">
+                     <children>
+                        <TextArea fx:id="resultArea" layoutX="14.0" layoutY="35.0" prefHeight="280.0" prefWidth="388.0" />
+                        <Label layoutX="16.0" layoutY="7.0" text="Logging Report" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+    </children>
+</AnchorPane>
