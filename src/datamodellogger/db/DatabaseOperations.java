@@ -143,7 +143,6 @@ public class DatabaseOperations {
     }
 
     public void deleteTempTables() {
-
         try {
             String newQuery = "drop table ZZZ_TMP_COL_UPDATE";
             Statement stmt = null;
@@ -157,7 +156,6 @@ public class DatabaseOperations {
         } catch (NullPointerException e) {
             System.out.println("Null Pointer Exception");
         }
-
         String query = null;
         List TmpTables = getTables(true);
         for (int i = 0; i < TmpTables.size(); i++) {
@@ -175,7 +173,6 @@ public class DatabaseOperations {
                 System.out.println("Null Pointer Exception");
             }
         }
-
     }
 
     public void createTempTables() {
@@ -211,11 +208,9 @@ public class DatabaseOperations {
         } catch (NullPointerException e) {
             System.out.println("Null Pointer Exception");
         }
-
     }
 
     public void deployTriggersCols() {
-
         List MainTables = getTables(false);
         for (int i = 0; i < MainTables.size(); i++) {
             String TableName = MainTables.get(i).toString();
@@ -229,7 +224,6 @@ public class DatabaseOperations {
             String ColumnLists = getColumnForTrigger(TableName);
             String[] ColumnList = ColumnLists.split("::");
             String[] Columns = ColumnList[0].split(",");
-
             for (int j = 0; j < Columns.length; j++) {
                 String TriggerQuery = "'" + TableName + "::" + Columns[j] + "::' ||" + ":old." + Columns[j] + "  || '::' ||" + ":new." + Columns[j];
                 String col = "IF UPDATING('" + Columns[j] + "') THEN \n"
@@ -239,7 +233,6 @@ public class DatabaseOperations {
             }
             strTrigger = strTrigger + " " + " END;";
             System.out.println(strTrigger);
-
             try {
                 Statement stmt = null;
                 stmt = conn.createStatement();
@@ -253,14 +246,12 @@ public class DatabaseOperations {
     }
 
     public void deployTriggers() {
-
         List MainTables = getTables(false);
         System.out.println("");
         System.out.println("");
         System.out.println("################# Trigger creation Started #################");
         for (int i = 0; i < MainTables.size(); i++) {
             Statement stmt = null;
-
             String TableName = MainTables.get(i).toString();
 //            String ColumnList = getColumnForTrigger(TableName);
             String ColumnLists = getColumnForTrigger(TableName);
@@ -330,7 +321,6 @@ public class DatabaseOperations {
 
     public void cleanSchema() {
         deleteTempTables();
-
     }
 
     public List returnTableCount() {
@@ -338,7 +328,6 @@ public class DatabaseOperations {
         tmpTable = getTables(true);
         List resultTable = new ArrayList();
         Statement stmt = null;
-
         for (int i = 0; i < tmpTable.size(); i++) {
             try {
                 stmt = conn.createStatement();
@@ -353,7 +342,6 @@ public class DatabaseOperations {
             } catch (SQLException ex) {
                 System.out.println("Sql Exception in result List");
             }
-
         }
         return resultTable;
 
@@ -365,7 +353,6 @@ public class DatabaseOperations {
         System.out.println("################# Temp Table cleaning started #################");
         for (int i = 0; i < TmpTables.size(); i++) {
             Statement stmt = null;
-
             query = "truncate Table " + TmpTables.get(i);
             try {
                 stmt = conn.createStatement();
@@ -413,7 +400,6 @@ public class DatabaseOperations {
             try {
                 stmt = conn.createStatement();
                 if (query != null) {
-
                     stmt.executeQuery(query);
                     System.out.println("ZZZ_TMP_" + tblName + " created Successfully. ");
                 }
@@ -441,7 +427,6 @@ public class DatabaseOperations {
             try {
                 stmt = conn.createStatement();
                 if (query != null) {
-
                     stmt.executeQuery(query);
                     System.out.println("ZZZ_TMP_" + tblName + " altered Successfully. ");
                 }
@@ -487,7 +472,6 @@ public class DatabaseOperations {
                 stmt = conn.createStatement();
                 if (query != null) {
                     ResultSet executeQuery = stmt.executeQuery(query);
-
                 }
                 System.out.println(TmpTables.get(i) + " deleted Successfully. ");
             } catch (SQLException e) {
@@ -515,7 +499,6 @@ public class DatabaseOperations {
                 String col = retval;
                 //String ifCaluse = "IF UPDATE (" + col + ") BEGIN PRINT '" + col.substring(1, col.length() - 1) + "' END";
                 String ifCaluse = "IF UPDATE (" + col + ") BEGIN insert into ZZZ_TMP_COL_UPDATE values(GETDATE(),'"+TableName +"::"+col+"') END";
-                
                 secondPart = secondPart + " " + ifCaluse;
             }
             String trgString = firstPart + secondPart;
@@ -538,7 +521,6 @@ public class DatabaseOperations {
                     System.out.println(ex.fillInStackTrace().toString());
                 }
             }
-
         }
     }
 
@@ -619,7 +601,6 @@ public class DatabaseOperations {
 
         }
         return resultTable;
-
     }
 
     public void TruncateTempTableMSSQL() {
