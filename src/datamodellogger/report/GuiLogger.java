@@ -10,20 +10,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ *
  * @author abuda
  */
 public class GuiLogger {
-
+  String workingDir=null;
+  String fname=null;
     public boolean startGUILogger(String taskname) {
 
         try {
-            String workingDir = System.getProperty("user.dir");
+            workingDir = System.getProperty("user.dir");
+            fname=taskname+"_log.zip";
             String path = workingDir + "\\" + taskname;
             System.out.println("File Path " + path);
             String command = "psr.exe /start /output " + path + "_log.zip   /sc 1 /slides 1 /gui 0 /arcxml 1";
+
             Runtime.getRuntime().exec(command);
             System.out.println("Process Step Recorder Started > Log file: " + path + "_log.zip");
             return true;
+
         } catch (IOException ex) {
             System.out.println("Exception in GuiLogger.startGUILogger");
             Logger.getLogger(GuiLogger.class.getName()).log(Level.SEVERE, null, ex);
@@ -32,7 +37,6 @@ public class GuiLogger {
     }
 
     public boolean stopGUILogger() {
-
         try {
             String command = "psr.exe /stop";
             Runtime.getRuntime().exec(command);
@@ -45,5 +49,11 @@ public class GuiLogger {
             return false;
         }
     }
+     public String getfilePath() {
+         return workingDir;
+     }
+     public String getfileName() {
+         return fname;
+     }
 
 }

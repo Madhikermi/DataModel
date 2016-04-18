@@ -3,8 +3,6 @@ package datamodellogger.db;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -12,150 +10,49 @@ public class DatabaseOperations {
 
     static final String MSSQL_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
-
     @FXML
     private TextField taskname;
     private Connection conn = null;
-    String CONSTRING = null;
+    String ConnectionString = null;
 
-    public DatabaseOperations() {
-        //Do DB connect 
-        //You have to figure out if we have an MSSQL or ORACLE DB 
-    }
-
-    public boolean connectToOracle(String DB_URL, String USER, String PASS, String PORT, String SID) {
-        CONSTRING = "jdbc:oracle:thin:@" + DB_URL + ":" + PORT + ":" + SID;
-        System.out.println(CONSTRING);
+    private List getDeployedTriggerOracle() {
+        Statement stmt = null;
+        String query = "select TRIGGER_NAME from USER_TRIGGERS where upper(TRIGGER_NAME) like 'ZZZ_TRI%' or  upper(TRIGGER_NAME) like 'COL_TRI%' ";
+        List Tmptriggers = new ArrayList();
         try {
-            Class.forName(ORACLE_DRIVER);
-            conn = DriverManager.getConnection(CONSTRING, USER, PASS);
-            System.out.println("Connected To Oracle");
-            System.out.println("################# Deleting Temporary Table Started #################");
-            deleteTempTables();
-            System.out.println("################# Deleting Temporary Table Finished #################");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("################# Creating  Temporary Table Started #################");
-            createTempTables();
-            System.out.println("################# Creating Temporary Table Finished #################");
-            deployTriggers();
-            conn.close();
-            System.out.println("Disconnected To Oracle");
-            return true;
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Class not found");
-            return false;
-        } catch (SQLException ex) {
-            System.out.println("Sql Exception");
-            return false;
-        } catch (Exception e) {
-            System.out.println("Error Occured");
-            return false;
-        }
-    }
-
-    public boolean connect(String DB_URL, String USER, String PASS, String PORT, String SID) {
-        try {
-            CONSTRING = "jdbc:oracle:thin:@" + DB_URL + ":" + PORT + ":" + SID;
-            Class.forName(ORACLE_DRIVER);
-            conn = DriverManager.getConnection(CONSTRING, USER, PASS);
-            System.out.println("Connected via start Button");
-            TruncateTempTable();
-            return true;
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Class Not found Exception");
-        } catch (SQLException ex) {
-            System.out.println("Sql exception during connection from start Button");
-        }
-        return false;
-    }
-
-    public void closeConnection() {
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            System.out.println("Error Closing Connection");
-        }
-    }
-
-    public boolean connectToMSServer(String DB_URL, String DB_NAME, String USER, String PASS, String PORT, String SID) {
-        CONSTRING = "jdbc:sqlserver://" + DB_URL + ":" + PORT + ";databaseName=" + DB_NAME + ";user=" + USER + ";password=" + PASS;
-        try {
-            Class.forName(MSSQL_DRIVER);
-            conn = DriverManager.getConnection(CONSTRING);
-            System.out.println("Connected to MysqlServer");
-            System.out.println("################# Deleting Temporary Table Started #################");
-            deleteTempTablesMSSQL();
-            System.out.println("################# Deleting Temporary Table Finished #################");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("################# Creating  Temporary Table Started #################");
-            createTempTablesMSSQL();
-            alterTempTablesMSSQL();
-            creatTblColUpMSSQL();
-            System.out.println("################# Creating Temporary Table Finished #################");
-            deployTriggersMSSQL();
-            deployTriggersColsMSSQL();
-            conn.close();
-            return true;
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Class not found");
-            return false;
-        } catch (SQLException ex) {
-            System.out.println("Sql Exception during connection in MSSQLSERVER");
-            return false;
-        } catch (Exception e) {
-            System.out.println(e.fillInStackTrace());
-            return false;
-        }
-    }
-
-    public boolean connectMSSQL(String DB_URL, String DB_NAME, String USER, String PASS, String PORT, String SID) {
-        try {
-            CONSTRING = "jdbc:sqlserver://" + DB_URL + ":" + PORT + ";databaseName=" + DB_NAME + ";user=" + USER + ";password=" + PASS;
-            Class.forName(MSSQL_DRIVER);
-            conn = DriverManager.getConnection(CONSTRING);
-            System.out.println("MMSQL Connection via start Button");
-            TruncateTempTableMSSQL();
-            return true;
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Class Not found Exception");
-        } catch (SQLException ex) {
-            System.out.println("Sql exception during connection from start Button");
-        }
-        return false;
-    }
-
-    public void deployDBLogger() {
-        // Get schema > Table names
-        // Create Triggers iterating trough table names   
-        // Create LOG_TEMP_DB
-    }
-
-    public void cleanupLoggingDB() {
-        // truncate table <Table>
-        // Clean LOG_TEMP_DB
-    }
-
-    public void reportResults() {
-        // Read what is in LOG_TEMP_DB and print out, remember the taskname
-        String loggedTaskName = taskname.getText();
-    }
-
-    public void deleteTempTables() {
-        try {
-            String newQuery = "drop table ZZZ_TMP_COL_UPDATE";
-            Statement stmt = null;
             stmt = conn.createStatement();
-            if (newQuery != null) {
-                ResultSet executeQuery = stmt.executeQuery(newQuery);
-                System.out.println("ZZZ_TMP_COL_UPDATE deleted Successfully. ");
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Tmptriggers.add(rs.getString(1));
             }
-        } catch (SQLException e) {
-            System.out.println("SSSSSSQL Exception during deleting temporary Tables");
-        } catch (NullPointerException e) {
-            System.out.println("Null Pointer Exception");
+            return Tmptriggers;
+        } catch (SQLException ex) {
+            System.out.println("Error getting list of deployed Trigger");
+            return Tmptriggers;
         }
+    }
+
+    private boolean deleteDeployedTriggerOracle() {
+        List TmpTables = getDeployedTriggerOracle();
+        String query = null;
+        try {
+            for (int i = 0; i < TmpTables.size(); i++) {
+                Statement stmt = null;
+                stmt = conn.createStatement();
+                query = "Drop Trigger " + TmpTables.get(i);
+                if (query != null) {
+                    ResultSet executeQuery = stmt.executeQuery(query);
+                    System.out.println(TmpTables.get(i) + " deleted Successfully. ");
+                }
+            }
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error during delete of temporary trigger");
+            return false;
+        }
+    }
+
+    private void deleteTempTables() {
         String query = null;
         List TmpTables = getTables(true);
         for (int i = 0; i < TmpTables.size(); i++) {
@@ -173,9 +70,22 @@ public class DatabaseOperations {
                 System.out.println("Null Pointer Exception");
             }
         }
+        try {
+            String newQuery = "drop table ZZZ_TMP_COL_UPDATE";
+            Statement stmt = null;
+            stmt = conn.createStatement();
+            if (newQuery != null) {
+                ResultSet executeQuery = stmt.executeQuery(newQuery);
+                System.out.println("ZZZ_TMP_COL_UPDATE deleted Successfully. ");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception during deleting temporary Tables");
+        } catch (NullPointerException e) {
+            System.out.println("Null Pointer Exception");
+        }
     }
 
-    public void createTempTables() {
+    private void createTempTables() {
         String query = null;
         List Tables = getTables(false);
         for (int i = 0; i < Tables.size(); i++) {
@@ -191,6 +101,9 @@ public class DatabaseOperations {
                 }
             } catch (SQLException e) {
                 System.out.println("SQL Exception occured in Creating temporary tables");
+                System.out.println(query);
+                System.out.println(query1);
+                return;
             } catch (NullPointerException e) {
                 System.out.println("Null Pointer Exception");
             }
@@ -210,13 +123,13 @@ public class DatabaseOperations {
         }
     }
 
-    public void deployTriggersCols() {
+    private void deployTriggersCols() {
         List MainTables = getTables(false);
         for (int i = 0; i < MainTables.size(); i++) {
             String TableName = MainTables.get(i).toString();
-            System.out.println(TableName);
-            String strTrigger = "CREATE OR REPLACE TRIGGER col_tri_"
-                    + TableName
+            String triName = "col_tri_" + TableName;
+            String strTrigger = "CREATE OR REPLACE TRIGGER "
+                    + triName
                     + " after UPDATE ON "
                     + TableName
                     + " FOR EACH ROW"
@@ -232,12 +145,11 @@ public class DatabaseOperations {
                 strTrigger = strTrigger + col;
             }
             strTrigger = strTrigger + " " + " END;";
-            System.out.println(strTrigger);
             try {
                 Statement stmt = null;
                 stmt = conn.createStatement();
                 stmt.executeQuery(strTrigger);
-                System.out.println("Trigger for " + TableName + " created succesfully.....");
+                System.out.println("Trigger " + triName + " for " + TableName + " created succesfully.....");
             } catch (SQLException ex) {
                 System.out.println("Error");
             }
@@ -245,28 +157,21 @@ public class DatabaseOperations {
 
     }
 
-    public void deployTriggers() {
+    private void deployTriggers() {
         List MainTables = getTables(false);
-        System.out.println("");
-        System.out.println("");
-        System.out.println("################# Trigger creation Started #################");
         for (int i = 0; i < MainTables.size(); i++) {
             Statement stmt = null;
             String TableName = MainTables.get(i).toString();
-//            String ColumnList = getColumnForTrigger(TableName);
             String ColumnLists = getColumnForTrigger(TableName);
             String[] ColumnList = ColumnLists.split("::");
-            String TriggerQuery = "create or replace trigger ZZZ_TRI_" + TableName
+            String triName = "ZZZ_TRI_" + TableName;
+            String TriggerQuery = "create or replace trigger " + triName
                     + " after insert on " + TableName + " for each row begin insert into ZZZ_TMP_" + TableName + "(" + ColumnList[0] + ",TS)"
                     + " values (" + ColumnList[1] + ",sysdate) ; end;";
-//            String TriggerQuery = "create or replace trigger ZZZ_TRI_" + TableName
-//                    + " after insert on " + TableName + " for each row begin insert into ZZZ_TMP_" + TableName
-//                    + " values (" + ColumnList + ") ; end;";
             try {
                 stmt = conn.createStatement();
-                System.out.println(TriggerQuery);
                 stmt.executeQuery(TriggerQuery);
-                System.out.println("Trigger for " + TableName + " created succesfully.....");
+                System.out.println("Trigger " + triName + " for " + TableName + " created succesfully.....");
             } catch (SQLException ex) {
                 System.out.println("Sql Exception During Creation of trigger");
             } catch (Exception e) {
@@ -274,10 +179,9 @@ public class DatabaseOperations {
             }
         }
         deployTriggersCols();
-        System.out.println("################# Trigger creation Completed #################");
     }
 
-    public String getColumnForTrigger(String Table_Name) {
+    private String getColumnForTrigger(String Table_Name) {
         String triggerColumnvalue = "";
         String triggerColumn = "";
         try {
@@ -297,7 +201,7 @@ public class DatabaseOperations {
         return collist + "::" + collistvalue;
     }
 
-    public List getTables(boolean IsTemp) {
+    private List getTables(boolean IsTemp) {
         List MainTables = new ArrayList();
         String query = "null";
         try {
@@ -319,35 +223,7 @@ public class DatabaseOperations {
         return MainTables;
     }
 
-    public void cleanSchema() {
-        deleteTempTables();
-    }
-
-    public List returnTableCount() {
-        List tmpTable = new ArrayList();
-        tmpTable = getTables(true);
-        List resultTable = new ArrayList();
-        Statement stmt = null;
-        for (int i = 0; i < tmpTable.size(); i++) {
-            try {
-                stmt = conn.createStatement();
-                String query = "select count(*) cnt from " + tmpTable.get(i);
-                ResultSet rss = stmt.executeQuery(query);
-                while (rss.next()) {
-                    String res = rss.getString(1);
-                    if (!res.equalsIgnoreCase("0")) {
-                        resultTable.add(tmpTable.get(i) + ":" + res);
-                    }
-                }
-            } catch (SQLException ex) {
-                System.out.println("Sql Exception in result List");
-            }
-        }
-        return resultTable;
-
-    }
-
-    public void TruncateTempTable() {
+    private void TruncateTempTables() {
         String query = null;
         List TmpTables = getTables(true);
         System.out.println("################# Temp Table cleaning started #################");
@@ -368,7 +244,145 @@ public class DatabaseOperations {
         }
     }
 
-    public List getTablesMSSQL(boolean IsTemp) {
+    private boolean connectOracle(String DB_URL, String DB_NAME, String USER, String PASS) {
+        String[] parts = DB_URL.split(":");
+        ConnectionString = "jdbc:oracle:thin:@" + parts[0] + ":" + parts[1] + ":" + DB_NAME;
+        try {
+            Class.forName(ORACLE_DRIVER);
+            conn = DriverManager.getConnection(ConnectionString, USER, PASS);
+            return true;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Class Not found Exception");
+        } catch (SQLException ex) {
+            System.out.println("Sql exception during connection from start Button");
+        }
+        return false;
+    }
+
+    private boolean closeConnection() {
+        try {
+            conn.close();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error Closing Connection");
+            return false;
+        }
+    }
+
+    public boolean deployToOracle(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectOracle(DB_URL, DB_NAME, USER, PASS)) {
+            System.out.println("Connected To Oracle");
+            System.out.println("################# Deleting Temporary Table Started #################");
+            deleteTempTables();
+            System.out.println("################# Deleting Temporary Table Finished #################");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("################# Creating  Temporary Table Started #################");
+            createTempTables();
+            System.out.println("################# Creating Temporary Table Finished #################");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("################# Deleting Temporary Trigger Started #################");
+            deleteDeployedTriggerOracle();
+            System.out.println("################# Deleting Temporary Trigger Finished #################");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("################# Creating  Temporary Trigger Started #################");
+            deployTriggers();
+            System.out.println("################# Creating Temporary Trigger Finished #################");
+            if (closeConnection()) {
+                System.out.println("Disconnected To Oracle");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean startLoggingOracle(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectOracle(DB_URL, DB_NAME, USER, PASS)) {
+            System.out.println("Connected To Oracle");
+            TruncateTempTables();
+            if (closeConnection()) {
+                System.out.println("Disconnected To Oracle");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void cleanSchema(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectOracle(DB_URL, DB_NAME, USER, PASS)) {
+            deleteTempTables();
+            deleteDeployedTriggerOracle();
+        }
+        if (closeConnection()) {
+            System.out.println("Disconnected To Oracle");
+        }
+    }
+
+    public List returnTableCount(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectOracle(DB_URL, DB_NAME, USER, PASS)) {
+            List tmpTable = new ArrayList();
+            tmpTable = getTables(true);
+            List resultTable = new ArrayList();
+            Statement stmt = null;
+            for (int i = 0; i < tmpTable.size(); i++) {
+                try {
+                    stmt = conn.createStatement();
+                    String query = "select count(*) cnt from " + tmpTable.get(i);
+                    ResultSet rss = stmt.executeQuery(query);
+                    while (rss.next()) {
+                        String res = rss.getString(1);
+                        if (!res.equalsIgnoreCase("0")) {
+                            resultTable.add(tmpTable.get(i) + ":" + res);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Sql Exception in result List");
+                    return null;
+                }
+            }
+            if (closeConnection()) {
+                System.out.println("Disconnected To Oracle");
+                return resultTable;
+            }
+
+        }
+        return null;
+    }
+
+    public void reportResults() {
+        // Read what is in LOG_TEMP_DB and print out, remember the taskname
+        String loggedTaskName = taskname.getText();
+    }
+
+    ////////////////////////////MS SQL SERVER ///////////////////////////////
+    private boolean connectMSSQL(String DB_URL, String DB_NAME, String USER, String PASS) {
+        String[] parts = DB_URL.split(":");
+        try {
+            ConnectionString = "jdbc:sqlserver://" + parts[0] + ":" + parts[1] + ";databaseName=" + DB_NAME + ";user=" + USER + ";password=" + PASS;
+            Class.forName(MSSQL_DRIVER);
+            conn = DriverManager.getConnection(ConnectionString);
+            return true;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Class Not found Exception");
+        } catch (SQLException ex) {
+            System.out.println("Sql exception during starting up connection");
+        }
+        return false;
+    }
+
+    private boolean closeConnectionMSSQL() {
+        try {
+            conn.close();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error Closing Connection");
+            return false;
+        }
+    }
+
+    private List getTablesMSSQL(boolean IsTemp) {
         List MainTables = new ArrayList();
         String query = "null";
         try {
@@ -390,13 +404,13 @@ public class DatabaseOperations {
         return MainTables;
     }
 
-    public void createTempTablesMSSQL() {
+    private void createTempTablesMSSQL() {
         String query = null;
         List Tables = getTablesMSSQL(false);
         for (int i = 0; i < Tables.size(); i++) {
             String tblName = Tables.get(i).toString();
             Statement stmt = null;
-            query = "select * into ZZZ_TMP_" + tblName + " from " + tblName + " where 1=2";
+            query = getCreateTableMsSql(tblName);
             try {
                 stmt = conn.createStatement();
                 if (query != null) {
@@ -416,34 +430,49 @@ public class DatabaseOperations {
 
     }
 
-    public void alterTempTablesMSSQL() {
-        String query = null;
-        List Tables = getTablesMSSQL(false);
-        for (int i = 0; i < Tables.size(); i++) {
-            String tblName = Tables.get(i).toString();
+    private String getCreateTableMsSql(String tablename) {
+        String firstPart = "create table ZZZ_TMP_" + tablename + "(";
+        String middlePart = "";
+        String lastPart = ")";
+        Connection conn;
+        try {
+            Class.forName(MSSQL_DRIVER);
+            conn = DriverManager.getConnection(ConnectionString);
             Statement stmt = null;
-            query = "alter table ZZZ_TMP_" + Tables.get(i) + " add TS datetime NOT NULL default CURRENT_TIMESTAMP";
-            //ALTER TABLE YourTable ADD CONSTRAINT DF_YourTable DEFAULT GETDATE() FOR YourColumn
-            try {
-                stmt = conn.createStatement();
-                if (query != null) {
-                    stmt.executeQuery(query);
-                    System.out.println("ZZZ_TMP_" + tblName + " altered Successfully. ");
-                }
-            } catch (SQLException e) {
-                if (e.fillInStackTrace().toString().equalsIgnoreCase("com.microsoft.sqlserver.jdbc.SQLServerException: The statement did not return a result set.")) {
-                    System.out.println("ZZZ_TMP_" + tblName + " altered Successfully.. ");
+            stmt = conn.createStatement();
+            //String query = "SELECT name from syscolumns where id = Object_ID('" + tablename + "') and colstat & 1 = 1";
+            String query = "SELECT distinct c.name, t.Name FROM sys.columns c INNER JOIN sys.types t ON c.user_type_id = t.user_type_id LEFT OUTER JOIN  sys.index_columns ic ON ic.object_id = c.object_id AND ic.column_id = c.column_id LEFT OUTER JOIN sys.indexes i ON ic.object_id = i.object_id AND ic.index_id = i.index_id WHERE c.object_id = OBJECT_ID('" + tablename + "')";
+            ResultSet rs = stmt.executeQuery(query);
+            String dType = null;
+            while (rs.next()) {
+                if (rs.getString(2).equalsIgnoreCase("varchar")) {
+                    dType = "varchar(max)";
+                } else if (rs.getString(2).equalsIgnoreCase("uniqueidentifier")) {
+                    dType = "varchar(max)";
                 } else {
-                    System.out.println(e.fillInStackTrace());
+                    dType = rs.getString(2);
                 }
-            } catch (NullPointerException e) {
-                System.out.println("Null Pointer Exception");
+                middlePart = middlePart + " " + "\""+  rs.getString(1)+ "\"" + " " + dType + ", ";
             }
-        }
+            middlePart = middlePart + " TS datetime NOT NULL default CURRENT_TIMESTAMP";
+            String Query2 = firstPart + middlePart + lastPart;
+            return Query2;
 
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Class not found");
+            return null;
+
+        } catch (SQLException ex) {
+            System.out.println("Sql Exception during connection in MSSQLSERVER");
+            return null;
+
+        } catch (Exception e) {
+            System.out.println(e.fillInStackTrace());
+            return null;
+        }
     }
 
-    public void creatTblColUpMSSQL() {
+    private void creatTblColUpMSSQL() {
         try {
             Statement stmt = null;
             String query = "create table ZZZ_TMP_COL_UPDATE (TS datetime , updatedetails varchar(2000))";
@@ -462,7 +491,7 @@ public class DatabaseOperations {
         }
     }
 
-    public void deleteTempTablesMSSQL() {
+    private void deleteTempTablesMSSQL() {
         String query = null;
         List TmpTables = getTablesMSSQL(true);
         for (int i = 0; i < TmpTables.size(); i++) {
@@ -487,7 +516,7 @@ public class DatabaseOperations {
 
     }
 
-    public void deployTriggersColsMSSQL() {
+    private void deployTriggersColsMSSQL() {
         List MainTables = getTablesMSSQL(false);
         for (Object MainTable : MainTables) {
             Statement stmt = null;
@@ -498,7 +527,7 @@ public class DatabaseOperations {
             for (String retval : columnLists.split(",")) {
                 String col = retval;
                 //String ifCaluse = "IF UPDATE (" + col + ") BEGIN PRINT '" + col.substring(1, col.length() - 1) + "' END";
-                String ifCaluse = "IF UPDATE (" + col + ") BEGIN insert into ZZZ_TMP_COL_UPDATE values(GETDATE(),'"+TableName +"::"+col+"') END";
+                String ifCaluse = "IF UPDATE (" + col + ") BEGIN insert into ZZZ_TMP_COL_UPDATE values(GETDATE(),'" + TableName + "::" + col + "') END";
                 secondPart = secondPart + " " + ifCaluse;
             }
             String trgString = firstPart + secondPart;
@@ -524,12 +553,8 @@ public class DatabaseOperations {
         }
     }
 
-    public void deployTriggersMSSQL() {
+    private void deployTriggersMSSQL() {
         List MainTables = getTablesMSSQL(false);
-        System.out.println("");
-        System.out.println("");
-        System.out.println("################# Trigger creation Started #################");
-
         for (int i = 0; i < MainTables.size(); i++) {
             Statement stmt = null;
 
@@ -559,10 +584,9 @@ public class DatabaseOperations {
                 System.out.println(e.fillInStackTrace());
             }
         }
-        System.out.println("################# Trigger creation Completed #################");
     }
 
-    public String getColumnForTriggerMSSQL(String Table_Name) {
+    private String getColumnForTriggerMSSQL(String Table_Name) {
         String triggerColumn = "\"";
         try {
             Statement stmt = null;
@@ -578,32 +602,7 @@ public class DatabaseOperations {
         return triggerColumn.substring(0, triggerColumn.length() - 2);
     }
 
-    public List returnTableCountMSSQL() {
-        List tmpTable = new ArrayList();
-        tmpTable = getTablesMSSQL(true);
-        List resultTable = new ArrayList();
-        Statement stmt = null;
-
-        for (int i = 0; i < tmpTable.size(); i++) {
-            try {
-                stmt = conn.createStatement();
-                String query = "select count(*) cnt from " + tmpTable.get(i);
-                ResultSet rss = stmt.executeQuery(query);
-                while (rss.next()) {
-                    String res = rss.getString(1);
-                    if (!res.equalsIgnoreCase("0")) {
-                        resultTable.add(tmpTable.get(i) + ":" + res);
-                    }
-                }
-            } catch (SQLException ex) {
-                System.out.println("Sql Exception in result List");
-            }
-
-        }
-        return resultTable;
-    }
-
-    public void TruncateTempTableMSSQL() {
+    private void TruncateTempTableMSSQL() {
         System.out.println("################# Temp Table cleaning started #################");
         String query = null;
         List TmpTables = getTablesMSSQL(true);
@@ -628,5 +627,85 @@ public class DatabaseOperations {
             }
         }
         System.out.println("################# Temp Table cleaning Completed #################");
+    }
+
+    public boolean deployToMSServer(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectMSSQL(DB_URL, DB_NAME, USER, PASS)) {
+            System.out.println("Connected to MysqlServer");
+            System.out.println("################# Deleting Temporary Table Started #################");
+            deleteTempTablesMSSQL();
+            System.out.println("################# Deleting Temporary Table Finished #################");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("################# Creating  Temporary Table Started #################");
+            createTempTablesMSSQL();
+            creatTblColUpMSSQL();
+            System.out.println("################# Creating Temporary Table Finished #################");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("################# Trigger creation Started #################");
+            deployTriggersMSSQL();
+            deployTriggersColsMSSQL();
+            System.out.println("################# Trigger creation Completed #################");
+        }
+        if (closeConnectionMSSQL()) {
+            System.out.println("Disconnected To MSSQL Server");
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean startLoggingMSSQL(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectMSSQL(DB_URL, DB_NAME, USER, PASS)) {
+            System.out.println("Connected To MSSQL");
+            TruncateTempTableMSSQL();
+            if (closeConnectionMSSQL()) {
+                System.out.println("Disconnected To MSSQL");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List returnTableCountMSSQL(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectMSSQL(DB_URL, DB_NAME, USER, PASS)) {
+            List tmpTable = new ArrayList();
+            tmpTable = getTablesMSSQL(true);
+            List resultTable = new ArrayList();
+            Statement stmt = null;
+
+            for (int i = 0; i < tmpTable.size(); i++) {
+                try {
+                    stmt = conn.createStatement();
+                    String query = "select count(*) cnt from " + tmpTable.get(i);
+                    ResultSet rss = stmt.executeQuery(query);
+                    while (rss.next()) {
+                        String res = rss.getString(1);
+                        if (!res.equalsIgnoreCase("0")) {
+                            resultTable.add(tmpTable.get(i) + ":" + res);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Sql Exception in result List");
+                }
+
+            }
+            if (closeConnectionMSSQL()) {
+                System.out.println("Disconnected To MSSQL");
+                return resultTable;
+            }
+
+        }
+        return null;
+    }
+
+    public void cleanSchemaMSSQL(String DB_URL, String DB_NAME, String USER, String PASS) {
+        if (connectMSSQL(DB_URL, DB_NAME, USER, PASS)) {
+            deleteTempTablesMSSQL();
+        }
+        if (closeConnectionMSSQL()) {
+            System.out.println("Disconnected To MSSQL");
+        }
     }
 }

@@ -25,13 +25,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
+import PsrParser.*;
 
-/**
- *
- * @author abuda
- */
+
 public class FXMLDocumentController implements Initializable {
 
     private String T_ISname = "";
@@ -74,47 +73,15 @@ public class FXMLDocumentController implements Initializable {
     private TextArea resultArea;
     @FXML
     ChoiceBox selectDataSource;
-    @FXML
-    private Button addtest;
-    
-    @FXML
-    private void handleaddtest(ActionEvent event) {
-      if (selectDataSource.getSelectionModel().getSelectedItem() == null ) {
-            Dialogs.create()
-            .owner(stage)
-            .title("Information Dialog")
-            .message("Please select the DataSource from the dropdown menu")
-            .showInformation();
-         return;
-        }
-        resultArea.setText("");
-        if (ParseSource(map.get(selectDataSource.getSelectionModel().getSelectedItem().toString()))) {
-            dbops = new DatabaseOperations();
-            logger = new GuiLogger();
-            if (T_Vendor.equalsIgnoreCase("Oracle")) {
-               if (dbops.connect(T_DBUrl, T_UserName, T_Password, T_Port, T_Sid)) {
-                   dbops.deployTriggersCols();
-            }
 
-            } else {
-               Dialogs.create()
-               .owner(stage)
-               .title("Information Dialog")
-               .masthead("Look, an Information Dialog")
-               .message("Oooooops something went wrong!")
-               .showInformation();
-               }
-            }
-    }
-    
     @FXML
     private void handleStartButton(ActionEvent event) {
         if (selectDataSource.getSelectionModel().getSelectedItem() == null ) {
-            Dialogs.create()
-            .owner(stage)
-            .title("Information Dialog")
-            .message("Please select the DataSource from the dropdown menu")
-            .showInformation();
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Info");
+            alert.setContentText("Please select the DataSource from the dropdown menu");
+            alert.show();
          return;
         }
         resultArea.setText("");
@@ -122,38 +89,39 @@ public class FXMLDocumentController implements Initializable {
             dbops = new DatabaseOperations();
             logger = new GuiLogger();
             if (T_Vendor.equalsIgnoreCase("Oracle")) {
-               if (dbops.connect(T_DBUrl, T_UserName, T_Password, T_Port, T_Sid)) {
+               if (dbops.startLoggingOracle(T_DBUrl, T_DBName, T_UserName, T_Password)) {
                    statusbar.setText("Logging started");
                    logger.startGUILogger(taskname.getText());
                    startButton.setDisable(true);
                    stop.setDisable(false);
             }
 
-
          } else if (T_Vendor.equalsIgnoreCase("MS SQL")) {
-            if (dbops.connectMSSQL(T_DBUrl,T_DBName,T_UserName, T_Password, T_Port, T_Sid)) {
+             
+            if (dbops.startLoggingMSSQL(T_DBUrl,T_DBName,T_UserName, T_Password)) {
                statusbar.setText("Logging started");
                logger.startGUILogger(taskname.getText());
                startButton.setDisable(true);
                stop.setDisable(false);
             }
             } else {
-               Dialogs.create()
-               .owner(stage)
-               .title("Information Dialog")
-               .masthead("Look, an Information Dialog")
-               .message("Currently we support Oracle and Mssql!")
-               .showInformation();
+
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Info");
+                alert.setHeaderText("Info");
+                alert.setContentText("\"Currently we support only Oracle and MS_SQL!");
+                alert.show();
                }
             }
     }
 
     @FXML
     private void handleStopButton(ActionEvent event) {
+        PsrParser psr = new PsrParser();
         if (T_Vendor.equalsIgnoreCase("Oracle")) {
-            List results = dbops.returnTableCount();
+            List results = dbops.returnTableCount(T_DBUrl, T_DBName, T_UserName, T_Password);
             String output = "";
-            if (results.size() != 0) {
+            if (!results.isEmpty()) {
                 for (int i = 0; i < results.size(); i++) {
                     output = output + results.get(i);
                     resultArea.setText(output);
@@ -161,16 +129,14 @@ public class FXMLDocumentController implements Initializable {
             } else {
                 resultArea.setText("Nothing Changed");
             }
-
-            dbops.closeConnection();
             startButton.setDisable(false);
             stop.setDisable(true);
             logger.stopGUILogger();
             statusbar.setText("Logging stopped");
         } else if (T_Vendor.equalsIgnoreCase("MS SQL")) {
-            List results = dbops.returnTableCountMSSQL();
+            List results = dbops.returnTableCountMSSQL(T_DBUrl, T_DBName, T_UserName, T_Password);
             String output = "";
-            if (results.size() != 0) {
+            if (!results.isEmpty()) {
                 for (int i = 0; i < results.size(); i++) {
                     output = output + results.get(i);
                     resultArea.setText(output);
@@ -178,11 +144,13 @@ public class FXMLDocumentController implements Initializable {
             } else {
                 resultArea.setText("Nothing Changed");
             }
-
-            dbops.closeConnection();
             startButton.setDisable(false);
             stop.setDisable(true);
             logger.stopGUILogger();
+            String OUTPUT_FOLDER=logger.getfilePath();
+            String INPUT_ZIP_FILE =OUTPUT_FOLDER+"\\"+logger.getfileName();
+            System.out.println(OUTPUT_FOLDER + "   " + INPUT_ZIP_FILE );
+            psr.unZipIt(INPUT_ZIP_FILE,OUTPUT_FOLDER);
             statusbar.setText("Logging stopped");
         } else {
             System.out.println("Only Oracle and MSSQL Server are supported");
@@ -192,6 +160,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleAddNew(ActionEvent event) {
         CustomGUI addDialog = new CustomGUI();
+
         addDialog.createAddDataSourceDialog(stage);
         updateCombofromFile();
     }
@@ -210,15 +179,15 @@ public class FXMLDocumentController implements Initializable {
         try {
             map.clear();
             File file = new File("config.dat");
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-             String line;
-            selectDataSource.getItems().clear();
-            while ((line = bufferedReader.readLine()) != null) {
-                map.put(getIsName(line), line);
-                selectDataSource.getItems().add(getIsName(line));
+            try (FileReader fileReader = new FileReader(file)) {
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                String line;
+                selectDataSource.getItems().clear();
+                while ((line = bufferedReader.readLine()) != null) {
+                    map.put(getIsName(line), line);
+                    selectDataSource.getItems().add(getIsName(line));
+                }
             }
-            fileReader.close();
 
         } catch (IOException e) {
             statusbar.setText("No Configuration Found Please Add new........");
@@ -233,8 +202,6 @@ public class FXMLDocumentController implements Initializable {
         T_DBName = result[3];
         T_UserName = result[4];
         T_Password = result[5];
-        T_Port = result[6];
-        T_Sid = result[7];
         return true;
     }
     

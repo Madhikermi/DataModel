@@ -40,7 +40,6 @@
                         <ChoiceBox fx:id="selectDataSource" layoutX="135.0" layoutY="26.0" prefWidth="150.0" />
                         <Button fx:id="addNew" layoutX="301.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleAddNew" prefHeight="25.0" prefWidth="72.0" text="Add New" />
                         <Separator layoutX="-4.0" layoutY="117.0" prefHeight="10.0" prefWidth="415.0" />
-                      <!--  <Button fx:id="addtest" layoutX="178.0" layoutY="122.0" onAction="#handleaddtest" mnemonicParsing="false" text="Test Button" /> -->
                      </children>
                   </AnchorPane>
             </content>
