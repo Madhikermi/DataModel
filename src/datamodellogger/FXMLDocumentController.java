@@ -150,7 +150,7 @@ public class FXMLDocumentController implements Initializable {
             String OUTPUT_FOLDER=logger.getfilePath();
             String INPUT_ZIP_FILE =OUTPUT_FOLDER+"\\"+logger.getfileName();
             System.out.println(OUTPUT_FOLDER + "   " + INPUT_ZIP_FILE );
-            psr.unZipIt(INPUT_ZIP_FILE,OUTPUT_FOLDER);
+            //psr.unZipIt(INPUT_ZIP_FILE,OUTPUT_FOLDER);
             statusbar.setText("Logging stopped");
         } else {
             System.out.println("Only Oracle and MSSQL Server are supported");
