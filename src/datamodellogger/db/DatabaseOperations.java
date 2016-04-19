@@ -449,7 +449,9 @@ public class DatabaseOperations {
                     dType = "varchar(max)";
                 } else if (rs.getString(2).equalsIgnoreCase("uniqueidentifier")) {
                     dType = "varchar(max)";
-                } else {
+                } else if (rs.getString(2).equalsIgnoreCase("nvarchar")) {
+                    dType = "nvarchar(max)";
+                }else {
                     dType = rs.getString(2);
                 }
                 middlePart = middlePart + " " + "\""+  rs.getString(1)+ "\"" + " " + dType + ", ";

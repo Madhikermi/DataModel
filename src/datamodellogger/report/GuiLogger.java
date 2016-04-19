@@ -16,13 +16,14 @@ import java.util.logging.Logger;
 public class GuiLogger {
   String workingDir=null;
   String fname=null;
+  String tskname=null;
     public boolean startGUILogger(String taskname) {
 
         try {
             workingDir = System.getProperty("user.dir");
             fname=taskname+"_log.zip";
+            tskname=taskname;
             String path = workingDir + "\\" + taskname;
-            System.out.println("File Path " + path);
             String command = "psr.exe /start /output " + path + "_log.zip   /sc 1 /slides 1 /gui 0 /arcxml 1";
 
             Runtime.getRuntime().exec(command);
@@ -54,6 +55,10 @@ public class GuiLogger {
      }
      public String getfileName() {
          return fname;
+     }
+     
+     public String taskName() {
+         return tskname;
      }
 
 }

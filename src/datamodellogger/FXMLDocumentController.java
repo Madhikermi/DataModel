@@ -147,10 +147,10 @@ public class FXMLDocumentController implements Initializable {
             startButton.setDisable(false);
             stop.setDisable(true);
             logger.stopGUILogger();
-            String OUTPUT_FOLDER=logger.getfilePath();
-            String INPUT_ZIP_FILE =OUTPUT_FOLDER+"\\"+logger.getfileName();
-            System.out.println(OUTPUT_FOLDER + "   " + INPUT_ZIP_FILE );
+            String INPUT_ZIP_FILE =logger.getfilePath()+"\\"+logger.getfileName();
+            String OUTPUT_FOLDER=logger.getfilePath()+"\\"+logger.taskName()+"\\";
             //psr.unZipIt(INPUT_ZIP_FILE,OUTPUT_FOLDER);
+           // psr.getmhtfile();
             statusbar.setText("Logging stopped");
         } else {
             System.out.println("Only Oracle and MSSQL Server are supported");
@@ -160,7 +160,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleAddNew(ActionEvent event) {
         CustomGUI addDialog = new CustomGUI();
-
         addDialog.createAddDataSourceDialog(stage);
         updateCombofromFile();
     }

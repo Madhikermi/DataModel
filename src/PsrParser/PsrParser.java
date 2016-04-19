@@ -19,7 +19,11 @@ import java.util.zip.ZipInputStream;
  */
 public class PsrParser {
 
+    private String path = null;
+
     public void unZipIt(String zipFile, String outputFolder) {
+        path = outputFolder;
+        System.out.println(zipFile);
         List<String> fileList;
         byte[] buffer = new byte[1024];
         try {
@@ -27,7 +31,6 @@ public class PsrParser {
             if (!folder.exists()) {
                 folder.mkdir();
             }
-            //get the zip file content
             ZipInputStream zis
                     = new ZipInputStream(new FileInputStream(zipFile));
             ZipEntry ze = zis.getNextEntry();
@@ -52,4 +55,19 @@ public class PsrParser {
             System.out.println("Error occured during Unzipping");
         }
     }
+
+    public void getmhtfile() {
+        String mstFile = null;
+        path="C:\\Users\\Manik\\Desktop\\Omi";
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                System.out.println(listOfFiles[i].getName().substring(listOfFiles[i].getName().length()-4, listOfFiles[i].getName().length()));
+            } 
+        }
+        
+        //return mstFile;
+    }
+
 }
