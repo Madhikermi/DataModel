@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report>
+  <System MajorVersion="6" MinorVersion="1" ServicePackMajor="1" ServicePackMinor="0" BuildNumber="7601" Sku="4" Platform="2" />
+  <UserActionData>
+    <RecordSession SessionCount="1" StartTime="5:43:18 PM" StopTime="5:43:32 PM" ActionCount="15" MissedActionCount="0">
+      <EachAction ActionNumber="1" Time="5:43:19 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User left double click in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Left Double Click</Action>
+        <CursorCoordsXY>2775,-553</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level RoleId="1" Role="title bar" Coordinates="-562,2584,928,27" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-565,2560,960,1200" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0001.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="2" Time="5:43:21 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User mouse drag start in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Drag Start</Action>
+        <CursorCoordsXY>2447,69</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level RoleId="1" Role="title bar" Coordinates="51,1876,992,27" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="48,1852,1024,680" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0002.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="3" Time="5:43:21 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User mouse drag end in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Drag End</Action>
+        <CursorCoordsXY>2731,-565</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level RoleId="1" Role="title bar" Coordinates="-583,2160,992,27" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-586,2136,1024,680" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0003.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="4" Time="5:43:22 PM" Pid="2612" ProgramId="0000f519feec486de87ed73cb92d3cac802400000000" FileId="0000762a6d1e2d185c4c57ca54baa38bc59363d7677a" FileVersion="6.1.7601.19135 (win7sp1_gdr.160121-1718)" FileDescription="Windows Explorer" FileCompany="Microsoft Corporation" FileName="Explorer.EXE" CommandLine="EXPLORER.EXE">
+        <Description>User left click on "Name (editable text)" in "DataModelLogger"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>1066,358</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="Name" RoleId="42" Role="editable text" Coordinates="358,1020,236,22" />
+          <Level Name="sqljdbc4-2.0.jar" RoleId="34" Role="list item" Coordinates="358,998,574,22" />
+          <Level Name="Items View" RoleId="33" Role="list" Coordinates="117,984,624,682" />
+          <Level RoleId="9" Role="window" ClassName="DirectUIHWND" Coordinates="117,984,624,682" />
+          <Level Name="ShellView" RoleId="9" Role="window" ClassName="SHELLDLL_DefView" Coordinates="117,984,624,682" />
+          <Level RoleId="9" Role="window" ClassName="CtrlNotifySink" Coordinates="117,984,624,682" />
+          <Level RoleId="9" Role="window" ClassName="DirectUIHWND" Coordinates="86,824,784,766" />
+          <Level RoleId="9" Role="window" ClassName="DUIViewWndClassName" Coordinates="86,824,784,766" />
+          <Level Name="DataModelLogger" RoleId="9" Role="window" ClassName="ShellTabWindowClass" Coordinates="65,824,784,787" />
+          <Level Name="DataModelLogger" RoleId="9" Role="window" ClassName="CabinetWClass" Coordinates="0,816,800,860" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0004.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="5" Time="5:43:23 PM" Pid="2612" ProgramId="0000f519feec486de87ed73cb92d3cac802400000000" FileId="0000762a6d1e2d185c4c57ca54baa38bc59363d7677a" FileVersion="6.1.7601.19135 (win7sp1_gdr.160121-1718)" FileDescription="Windows Explorer" FileCompany="Microsoft Corporation" FileName="Explorer.EXE" CommandLine="EXPLORER.EXE">
+        <Description>User left click on "Name (editable text)" in "DataModelLogger"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>1098,214</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="Name" RoleId="42" Role="editable text" Coordinates="211,1020,236,22" />
+          <Level Name="lib" RoleId="34" Role="list item" Coordinates="211,998,574,22" />
+          <Level Name="Items View" RoleId="33" Role="list" Coordinates="117,984,624,682" />
+          <Level RoleId="9" Role="window" ClassName="DirectUIHWND" Coordinates="117,984,624,682" />
+          <Level Name="ShellView" RoleId="9" Role="window" ClassName="SHELLDLL_DefView" Coordinates="117,984,624,682" />
+          <Level RoleId="9" Role="window" ClassName="CtrlNotifySink" Coordinates="117,984,624,682" />
+          <Level RoleId="9" Role="window" ClassName="DirectUIHWND" Coordinates="86,824,784,766" />
+          <Level RoleId="9" Role="window" ClassName="DUIViewWndClassName" Coordinates="86,824,784,766" />
+          <Level Name="DataModelLogger" RoleId="9" Role="window" ClassName="ShellTabWindowClass" Coordinates="65,824,784,787" />
+          <Level Name="DataModelLogger" RoleId="9" Role="window" ClassName="CabinetWClass" Coordinates="0,816,800,860" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0005.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="6" Time="5:43:24 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User left click on "Text Editor (editable text)" in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>2383,-410</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="Text Editor" RoleId="42" Role="editable text" Coordinates="-441,2110,1366,505" />
+          <Level RoleId="16" Role="pane" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;19dd1dff-a248-4f02-bea7-e484683993fe]" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1020" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))*" RoleId="9" Role="window" ClassName="GenericPane" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-573,1592,1936,1216" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0006.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="7" Time="5:43:24 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User keyboard input in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Keyboard Input</Action>
+        <CursorCoordsXY>2783,-180</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;19dd1dff-a248-4f02-bea7-e484683993fe]" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1020" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))*" RoleId="9" Role="window" ClassName="GenericPane" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-573,1592,1936,1216" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0007.jpeg</ScreenshotFileName>
+        <Text>... CTRL</Text>
+      </EachAction>
+      <EachAction ActionNumber="8" Time="5:43:25 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User mouse drag start on "Text Editor (editable text)" in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Drag Start</Action>
+        <CursorCoordsXY>2525,-418</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="Text Editor" RoleId="42" Role="editable text" Coordinates="-441,2110,1366,505" />
+          <Level RoleId="16" Role="pane" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;19dd1dff-a248-4f02-bea7-e484683993fe]" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1020" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))*" RoleId="9" Role="window" ClassName="GenericPane" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-573,1592,1936,1216" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0008.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="9" Time="5:43:25 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User mouse drag end on "Text Editor (editable text)" in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Drag End</Action>
+        <CursorCoordsXY>2156,-421</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="Text Editor" RoleId="42" Role="editable text" Coordinates="-441,2110,1366,505" />
+          <Level RoleId="16" Role="pane" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;19dd1dff-a248-4f02-bea7-e484683993fe]" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,522" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1020" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.Window.8.app.0.34f5582_r44_ad1" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))*" RoleId="9" Role="window" ClassName="GenericPane" Coordinates="-441,2074,1419,1043" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-573,1592,1936,1216" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0009.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="10" Time="5:43:27 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User left click on "E_xecute (text)" in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>1863,-482</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="E_xecute" RoleId="41" Role="text" Coordinates="-493,1860,40,15" />
+          <Level Name="Execute" RoleId="43" Role="push button" Coordinates="-496,1837,71,22" />
+          <Level Name="SQL Editor" RoleId="22" Role="tool bar" Coordinates="-497,1602,749,24" />
+          <Level Name="ToolBarDockTop" RoleId="16" Role="pane" Coordinates="-522,1602,1917,50" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-573,1592,1936,1216" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0010.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="11" Time="5:43:28 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User mouse drag start in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Drag Start</Action>
+        <CursorCoordsXY>2491,-565</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level RoleId="1" Role="title bar" Coordinates="-570,1616,1904,27" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-573,1592,1936,1216" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0011.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="12" Time="5:43:29 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User mouse drag end in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Drag End</Action>
+        <CursorCoordsXY>2538,-105</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level RoleId="1" Role="title bar" Coordinates="-110,2050,992,27" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-113,2026,1024,680" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0012.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="13" Time="5:43:30 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User left click on "bla (outline item)" in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>2124,143</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="bla" RoleId="36" Role="outline item" Coordinates="132,2121,20,18" />
+          <Level Name="Object Explorer Hierarchy" RoleId="35" Role="outline" Coordinates="42,2042,441,486" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.SysTreeView32.app.0.34f5582_r44_ad1" Coordinates="40,2040,462,490" />
+          <Level Name="Object Explorer" RoleId="9" Role="window" ClassName="GenericPane" Coordinates="40,2040,462,490" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-113,2026,1024,680" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0013.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="14" Time="5:43:31 PM" Pid="9164" ProgramId="0006bb16f0d2f08e50ca5217e0df226b941700000904" FileId="0000e860a8fcf9ba0d83d59eeec5b1919ffb3cf8c8ec" FileVersion="2011.0110.6020.00" FileDescription="SQL Server Management Studio" FileCompany="Microsoft Corporation" FileName="Ssms.exe" CommandLine="SSMS.EXE">
+        <Description>User left click on "DataHistory (outline item)" in "SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>2152,160</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="DataHistory" RoleId="36" Role="outline item" Coordinates="150,2121,66,18" />
+          <Level Name="Object Explorer Hierarchy" RoleId="35" Role="outline" Coordinates="42,2042,441,486" />
+          <Level RoleId="9" Role="window" ClassName="WindowsForms10.SysTreeView32.app.0.34f5582_r44_ad1" Coordinates="40,2040,462,490" />
+          <Level Name="Object Explorer" RoleId="9" Role="window" ClassName="GenericPane" Coordinates="40,2040,462,490" />
+          <Level Name="SQLQuery1.sql - MANIK-PC.LoggerTest (futis (58))* - Microsoft SQL Server Management Studio" RoleId="9" Role="window" ClassName="HwndWrapper[DefaultDomain;;713395d3-addf-4ac8-98e8-4e5002f4ce88]" Coordinates="-113,2026,1024,680" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0014.jpeg</ScreenshotFileName>
+      </EachAction>
+      <EachAction ActionNumber="15" Time="5:43:32 PM" Pid="8392" ProgramId="0006d7782336d2dd4cf977c159e51958dba600000000" FileId="00008c2c2f3d687fe99d9a724514f09f53bcb989a1e0" FileVersion="8.0.51.16" FileDescription="Java(TM) Platform SE binary" FileCompany="Oracle Corporation" FileName="java.exe" CommandLine="JAVA\JDK1.8.0_51\BIN\JAVA  -DFILE.ENCODING=UTF-8 -CLASSPATH  C:\GIT\DATAMODELLOGGER\DIST\RUN159328172\DATAMODELLOGGER.JAR;C:\GIT\DATAMODELLOGGER\OJDBC6.JAR;C:\GIT\DATAMODELLOGGER\SQLJDBC4-2.0.JAR;C:\PROGRAM FILES\JAVA\JDK1.8.0_51\JRE\LIB\JAVAWS.JAR;C:\PROGRAM FILES\JAVA\JDK1.8.0_51\JRE\LIB\DEPLOY.JAR;C:\PROGRAM FILES\JAVA\JDK1.8.0_51\JRE\LIB\PLUGIN.JAR  -JAR C:\GIT\DATAMODELLOGGER\DIST\RUN159328172\DATAMODELLOGGER.JAR">
+        <Description>User left click in "Data Model Logger"</Description>
+        <Action>Mouse Left Click</Action>
+        <CursorCoordsXY>2387,-144</CursorCoordsXY>
+        <ScreenCoordsXYWH>-565,0,3520,1465</ScreenCoordsXYWH>
+        <UIStack>
+          <Level Name="Data Model Logger" RoleId="9" Role="window" ClassName="GlassWndClass-GlassWindowClass-2" Coordinates="-378,2057,420,385" />
+        </UIStack>
+        <ScreenshotFileName>screenshot_0015.jpeg</ScreenshotFileName>
+      </EachAction>
+    </RecordSession>
+  </UserActionData>
+</Report>

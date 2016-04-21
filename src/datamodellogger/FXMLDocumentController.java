@@ -30,7 +30,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import PsrParser.*;
 
-
 public class FXMLDocumentController implements Initializable {
 
     private String T_ISname = "";
@@ -41,7 +40,7 @@ public class FXMLDocumentController implements Initializable {
     private String T_Password = "";
     private String T_Port = "";
     private String T_Sid = "";
-    HashMap<String,String> map = new HashMap<String,String>();
+    HashMap<String, String> map = new HashMap<String, String>();
 
     DatabaseOperations dbops;
     GuiLogger logger;
@@ -76,34 +75,34 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleStartButton(ActionEvent event) {
-        if (selectDataSource.getSelectionModel().getSelectedItem() == null ) {
+        if (selectDataSource.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Info");
             alert.setHeaderText("Info");
             alert.setContentText("Please select the DataSource from the dropdown menu");
             alert.show();
-         return;
+            return;
         }
         resultArea.setText("");
         if (ParseSource(map.get(selectDataSource.getSelectionModel().getSelectedItem().toString()))) {
             dbops = new DatabaseOperations();
             logger = new GuiLogger();
             if (T_Vendor.equalsIgnoreCase("Oracle")) {
-               if (dbops.startLoggingOracle(T_DBUrl, T_DBName, T_UserName, T_Password)) {
-                   statusbar.setText("Logging started");
-                   logger.startGUILogger(taskname.getText());
-                   startButton.setDisable(true);
-                   stop.setDisable(false);
-            }
+                if (dbops.startLoggingOracle(T_DBUrl, T_DBName, T_UserName, T_Password)) {
+                    statusbar.setText("Logging started");
+                    logger.startGUILogger(taskname.getText());
+                    startButton.setDisable(true);
+                    stop.setDisable(false);
+                }
 
-         } else if (T_Vendor.equalsIgnoreCase("MS SQL")) {
-             
-            if (dbops.startLoggingMSSQL(T_DBUrl,T_DBName,T_UserName, T_Password)) {
-               statusbar.setText("Logging started");
-               logger.startGUILogger(taskname.getText());
-               startButton.setDisable(true);
-               stop.setDisable(false);
-            }
+            } else if (T_Vendor.equalsIgnoreCase("MS SQL")) {
+
+                if (dbops.startLoggingMSSQL(T_DBUrl, T_DBName, T_UserName, T_Password)) {
+                    statusbar.setText("Logging started");
+                    logger.startGUILogger(taskname.getText());
+                    startButton.setDisable(true);
+                    stop.setDisable(false);
+                }
             } else {
 
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -111,8 +110,8 @@ public class FXMLDocumentController implements Initializable {
                 alert.setHeaderText("Info");
                 alert.setContentText("\"Currently we support only Oracle and MS_SQL!");
                 alert.show();
-               }
             }
+        }
     }
 
     @FXML
@@ -147,10 +146,22 @@ public class FXMLDocumentController implements Initializable {
             startButton.setDisable(false);
             stop.setDisable(true);
             logger.stopGUILogger();
-            String INPUT_ZIP_FILE =logger.getfilePath()+"\\"+logger.getfileName();
-            String OUTPUT_FOLDER=logger.getfilePath()+"\\"+logger.taskName()+"\\";
-            //psr.unZipIt(INPUT_ZIP_FILE,OUTPUT_FOLDER);
-           // psr.getmhtfile();
+            String INPUT_ZIP_FILE = logger.getfilePath() + "\\" + logger.getfileName();
+            String OUTPUT_FOLDER = logger.getfilePath() + "\\" + logger.taskName();
+            boolean unzip = true;
+            int ctr=0;
+            while (unzip) {
+                try {
+                    psr.processMhtResult(INPUT_ZIP_FILE, OUTPUT_FOLDER,T_DBUrl, T_DBName, T_UserName, T_Password);
+                    unzip=false;
+                } catch (Exception ex) {
+                    if(ctr==10000){
+                        System.out.println(ctr+ ": Error Unzipping File " + INPUT_ZIP_FILE);
+                        unzip=false;
+                    }
+                    ctr++;
+                }
+            }
             statusbar.setText("Logging stopped");
         } else {
             System.out.println("Only Oracle and MSSQL Server are supported");
@@ -169,7 +180,7 @@ public class FXMLDocumentController implements Initializable {
         statusbar.setDisable(true);
         statusbar.setText("Please Click Start Button to Record");
         updateCombofromFile();
-      //  stage.setResizable(false);
+        //  stage.setResizable(false);
         stop.setDisable(true);
 
     }
@@ -203,7 +214,7 @@ public class FXMLDocumentController implements Initializable {
         T_Password = result[5];
         return true;
     }
-    
+
     private String getIsName(String text) {
         String[] result = text.split(",");
         return result[0];

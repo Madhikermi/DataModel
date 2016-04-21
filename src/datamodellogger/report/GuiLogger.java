@@ -42,13 +42,17 @@ public class GuiLogger {
             String command = "psr.exe /stop";
             Runtime.getRuntime().exec(command);
             System.out.println("Process Step Recorder Stopped");
-
+            Thread.sleep(200);
             return true;
         } catch (IOException ex) {
             System.out.println("Exception in GuiLogger.stopGUILogger");
             Logger.getLogger(GuiLogger.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }
+        } catch (InterruptedException ex) {
+          Logger.getLogger(GuiLogger.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("Exception in GuiLogger.stopGUILogger");
+           return false;
+      }
     }
      public String getfilePath() {
          return workingDir;
