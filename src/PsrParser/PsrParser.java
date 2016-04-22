@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.*;
+import static java.nio.file.StandardWatchEventKinds.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -47,26 +49,71 @@ public class PsrParser {
     private String DBName;
     private String UserName;
     private String Password;
+    private String logfilePath;
+    private String fname;
 
-    public void processMhtResult(String zipFilePath, String destDirectory, String T_DBUrl, String T_DBName, String T_UserName, String T_Password) throws IOException {
+    public void processMhtResult(String LogPath, String Fname, String T_DBUrl, String T_DBName, String T_UserName, String T_Password) {
         DBUrl = T_DBUrl;
         DBName = T_DBName;
         UserName = T_UserName;
         Password = T_Password;
+        logfilePath = LogPath;
+        fname = Fname;
+        outMhtFile = LogPath + "\\" + fname + "\\";
+        inMhtFile = outMhtFile + "\\" + fname + "_log.zip";
         
-      //  System.out.println(zipFilePath);
-       // System.out.println(destDirectory);
-        unzip(zipFilePath, destDirectory);
-        inMhtFile = getMhtFileName();
-        outMhtFile = inMhtFile.substring(0, inMhtFile.length() - 4) + "_out.mht";
-    //    System.out.println(inMhtFile);
-    //    System.out.println(outMhtFile);
-        mainTest();
+        System.out.println("logfilePath" + "");
+        
+
+        //  chkZipCreationComplete();
+        //unzip(zipFilePath, destDirectory);
+        //  inMhtFile = getMhtFileName();
+        //  outMhtFile = inMhtFile.substring(0, inMhtFile.length() - 4) + "_out.mht";
+        //    System.out.println(inMhtFile);
+        //    System.out.println(outMhtFile);
+        //mainTest();
+    }
+
+    private boolean chkZipCreationComplete() {
+        try {
+            WatchService watcher = FileSystems.getDefault().newWatchService();
+            Path dir = Paths.get(logfilePath);
+            dir.register(watcher, ENTRY_CREATE);
+            System.out.println("Watch Service registered for dir: " + dir.getFileName());
+            Boolean CreationComplete = true;
+            while (CreationComplete) {
+                WatchKey key;
+                try {
+                    key = watcher.take();
+                } catch (InterruptedException ex) {
+                    return false;
+                }
+                for (WatchEvent<?> event : key.pollEvents()) {
+                    WatchEvent.Kind<?> kind = event.kind();
+                    @SuppressWarnings("unchecked")
+                    WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                    Path fileName = ev.context();
+                    System.out.println(kind.name() + ": " + fileName);
+                    if (kind == ENTRY_MODIFY
+                            && fileName.toString().equals("DirectoryWatchDemo.java")) {
+                        System.out.println("My source file has changed!!!");
+                        return true;
+                    }
+                }
+
+                boolean valid = key.reset();
+                if (!valid) {
+                    break;
+                }
+            }
+        } catch (IOException ex) {
+            System.err.println(ex);
+        }
+        return false;
     }
 
     public void unzip(String zipFilePath, String destDirectory) throws IOException {
-        folderName = destDirectory;
-        File destDir = new File(destDirectory);
+        File destDir = new File(folderName);
         if (!destDir.exists()) {
             destDir.mkdir();
         }

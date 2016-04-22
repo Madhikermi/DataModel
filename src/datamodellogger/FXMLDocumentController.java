@@ -146,22 +146,8 @@ public class FXMLDocumentController implements Initializable {
             startButton.setDisable(false);
             stop.setDisable(true);
             logger.stopGUILogger();
-            String INPUT_ZIP_FILE = logger.getfilePath() + "\\" + logger.getfileName();
-            String OUTPUT_FOLDER = logger.getfilePath() + "\\" + logger.taskName();
-            boolean unzip = true;
-            int ctr=0;
-            while (unzip) {
-                try {
-                    psr.processMhtResult(INPUT_ZIP_FILE, OUTPUT_FOLDER,T_DBUrl, T_DBName, T_UserName, T_Password);
-                    unzip=false;
-                } catch (Exception ex) {
-                    if(ctr==10000){
-                        System.out.println(ctr+ ": Error Unzipping File " + INPUT_ZIP_FILE);
-                        unzip=false;
-                    }
-                    ctr++;
-                }
-            }
+        // UNZIP CODE logger.getfilePath(),logger.taskName
+
             statusbar.setText("Logging stopped");
         } else {
             System.out.println("Only Oracle and MSSQL Server are supported");
