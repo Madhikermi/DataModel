@@ -451,8 +451,10 @@ public class DatabaseOperations {
                     dType = "varchar(max)";
                 } else if (rs.getString(2).equalsIgnoreCase("nvarchar")) {
                     dType = "nvarchar(max)";
+                }else if (rs.getString(2).equalsIgnoreCase("char")) {
+                    dType = "char(max)";
                 }else {
-                    dType = "varchar(max)";
+                    dType = rs.getString(2);
                 }
                 middlePart = middlePart + " " + "\""+  rs.getString(1)+ "\"" + " " + dType + ", ";
             }
